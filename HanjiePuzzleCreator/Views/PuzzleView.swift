@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PuzzleView: View {
     @ObservedObject var puzzle: Puzzle
-    @State var tileSize: CGFloat = 14
+    @State var tileSize: CGFloat = 16
     
     var body: some View {
         
@@ -32,9 +32,11 @@ struct PuzzleView: View {
     let frame = Puzzle.framed
     let four = Puzzle.fourDots
     let x = Puzzle.letterX
+    let crosshair = Puzzle.crosshair
 
     VStack {
         PuzzleView(puzzle: puzzle).padding()
+        PuzzleView(puzzle: crosshair).padding()
         PuzzleView(puzzle: frame).padding()
         PuzzleView(puzzle: four).padding()
         PuzzleView(puzzle: x).padding()

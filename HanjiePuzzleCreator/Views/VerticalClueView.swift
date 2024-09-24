@@ -12,8 +12,8 @@ struct VerticalClueView: View {
     @State var size: CGFloat
     var body: some View {
         Text("\(tileLine.verticalSting)")
-            .frame(width: size, height: tileLine.stringSize(tileSize: size), alignment: .center)
-            .border(.white)
+            .frame(width: size, alignment: .center)
+
     }
 }
 

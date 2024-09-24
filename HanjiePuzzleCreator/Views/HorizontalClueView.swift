@@ -13,13 +13,12 @@ struct HorizontalClueView: View {
 
     var body: some View {
         Text("\(tileLine.horizontalString)")
-            .frame(width: tileLine.stringSize(tileSize: size), height: size, alignment: .center)
-            .border(.white)
+            .frame(height: size, alignment: .center)
     }
 }
 
 #Preview {
-    let size: CGFloat = 14.0
+    let size: CGFloat = 16.0
     let lineOne = TileLine(tiles: [Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile()])
     let lineTwo = TileLine(tiles: [Tile(),
                                    Tile(tileColor: TileColor.primary),

@@ -45,7 +45,7 @@ class Puzzle: ObservableObject, Codable, Hashable, Equatable {
         var lineTiles: [Tile] = []
 
         for index in 0..<height {
-            let tile = tiles[number][index]
+            let tile = tiles[index][number]
             lineTiles.append(tile)
         }
 
@@ -132,6 +132,22 @@ class Puzzle: ObservableObject, Codable, Hashable, Equatable {
         return nil
     }
 
+    static var dash: Puzzle {
+        let puz = Puzzle()
+
+        puz.update(color: .primary, location: Location(x: 0, y: 2))
+        puz.update(color: .primary, location: Location(x: 1, y: 2))
+        puz.update(color: .primary, location: Location(x: 2, y: 2))
+        puz.update(color: .primary, location: Location(x: 3, y: 2))
+        puz.update(color: .primary, location: Location(x: 4, y: 2))
+        puz.update(color: .primary, location: Location(x: 5, y: 2))
+        puz.update(color: .primary, location: Location(x: 6, y: 2))
+        puz.update(color: .primary, location: Location(x: 7, y: 2))
+        puz.update(color: .primary, location: Location(x: 8, y: 2))
+        puz.update(color: .primary, location: Location(x: 9, y: 2))
+
+        return puz
+    }
 
     static var fourDots: Puzzle {
         let puz = Puzzle()
@@ -159,6 +175,34 @@ class Puzzle: ObservableObject, Codable, Hashable, Equatable {
 
         puz.update(color: .primary, location: Location(x: 7, y: 8))
         puz.update(color: .primary, location: Location(x: 8, y: 8))
+
+        return puz
+    }
+
+    static var crosshair: Puzzle {
+        let puz = Puzzle()
+
+        puz.update(color: .primary, location: Location(x: 4, y: 0))
+        puz.update(color: .primary, location: Location(x: 4, y: 1))
+        puz.update(color: .primary, location: Location(x: 4, y: 2))
+        puz.update(color: .primary, location: Location(x: 4, y: 3))
+        puz.update(color: .primary, location: Location(x: 4, y: 4))
+        puz.update(color: .primary, location: Location(x: 4, y: 5))
+        puz.update(color: .primary, location: Location(x: 4, y: 6))
+        puz.update(color: .primary, location: Location(x: 4, y: 7))
+        puz.update(color: .primary, location: Location(x: 4, y: 8))
+        puz.update(color: .primary, location: Location(x: 4, y: 9))
+
+        puz.update(color: .primary, location: Location(x: 0, y: 4))
+        puz.update(color: .primary, location: Location(x: 1, y: 4))
+        puz.update(color: .primary, location: Location(x: 2, y: 4))
+        puz.update(color: .primary, location: Location(x: 3, y: 4))
+        puz.update(color: .primary, location: Location(x: 5, y: 4))
+        puz.update(color: .primary, location: Location(x: 6, y: 4))
+        puz.update(color: .primary, location: Location(x: 7, y: 4))
+        puz.update(color: .primary, location: Location(x: 8, y: 4))
+        puz.update(color: .primary, location: Location(x: 9, y: 4))
+
 
         return puz
     }

@@ -36,6 +36,10 @@ class TileLine: ObservableObject {
             currentIndex = currentIndex + 1
         }
 
+        if onCount > 0 && array.counts.isEmpty {
+            array.counts.append(onCount)
+        }
+
         return array
     }
 
@@ -73,7 +77,6 @@ class TileLine: ObservableObject {
         var result = ""
         var index: Int = 0
         array.forEach { count in
-
             if count > 0 {
                 result.append("\(count)")
             }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RowsClueView: View {
     @ObservedObject var puzzle: Puzzle
-    @State var tileSize: CGFloat = 14
+    @State var tileSize: CGFloat = 16
 
     var body: some View {
         horizontalClues()
@@ -38,11 +38,20 @@ struct RowsClueView: View {
     let fourDotPuzzle = Puzzle.fourDots
     let letterXPuzzle = Puzzle.letterX
     let framedPuzzle = Puzzle.framed
+    let crosshairPuzzle = Puzzle.crosshair
+    let dash = Puzzle.dash
 
     VStack {
-        RowsClueView(puzzle: fourDotPuzzle, tileSize: 14.0)
-        RowsClueView(puzzle: letterXPuzzle, tileSize: 14.0)
-        RowsClueView(puzzle: framedPuzzle, tileSize: 14.0)
+        RowsClueView(puzzle: fourDotPuzzle, tileSize: 16.0)
+            .background(.red)
+        RowsClueView(puzzle: letterXPuzzle, tileSize: 16.0)
+            .background(.blue)
+        RowsClueView(puzzle: framedPuzzle, tileSize: 16.0)
+            .background(.red)
+        RowsClueView(puzzle: crosshairPuzzle, tileSize: 16.0)
+            .background(.blue)
+        RowsClueView(puzzle: dash, tileSize: 16.0)
+            .background(.red)
     }
 }
 
