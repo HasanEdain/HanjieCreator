@@ -8,83 +8,82 @@
 import Foundation
 
 class Puzzle: ObservableObject, Codable, Hashable, Equatable {
-    @Published var tiles: [[Tile]] = []
-    @Published var width: Int = 10
-    @Published var height: Int = 10
-    @Published var tileSize: CGFloat = 14.0
-    @Published var name: String = "Puzzle"
+    @Published var puzzleTiles: PuzzleTiles
+    @Published var tileSize: CGFloat
+    @Published var name: String
 
-    init(width:Int = 10, height:Int = 10, size: CGFloat = 14.0) {
-        for yIndex in 0..<height {
-            tiles.append([Tile]())
-            for _ in 0..<width {
-                tiles[yIndex].append(Tile())
-            }
-        }
-        self.width = width
-        self.height = height
+    init(width:Int = 10, height:Int = 10, size: CGFloat = 16.0, name: String = "Puzzle") {
         self.tileSize = size
+        self.name = name
+        self.puzzleTiles = PuzzleTiles(width: width, height: height)
     }
 
     func update(color: TileColor, location: Location) {
-        let tile = tile(at: location)
+        let tile = puzzleTiles.tile(at: location)
         tile.tileColor = color
     }
 
-    func tile(at location: Location) -> Tile {
-        let tile = tiles[location.y][location.x]
 
-        return tile
-    }
-
+    //MARK: - Access
     func row(number: Int) -> TileLine {
-        return TileLine(tiles: tiles[number])
+        return puzzleTiles.row(number: number)
     }
 
     func column(number: Int) -> TileLine {
-        var lineTiles: [Tile] = []
+        return puzzleTiles.column(number: number)
+    }
 
-        for index in 0..<height {
-            let tile = tiles[index][number]
-            lineTiles.append(tile)
-        }
+    var width: Int {
+        return puzzleTiles.width
+    }
 
-        return TileLine(tiles: lineTiles)
+    var height: Int {
+        return puzzleTiles.height
     }
 
     //MARK: - Codable
     enum CodingKeys: CodingKey {
-        case tiles
+        case puzzleTiles
+        case tileSize
+        case name
     }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        tiles = try container.decode([[Tile]].self, forKey: .tiles)
+        puzzleTiles = try container.decode(PuzzleTiles.self, forKey: .puzzleTiles)
+        tileSize = try container.decode(CGFloat.self, forKey: .tileSize)
+        name = try container.decode(String.self, forKey: .name)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(tiles, forKey: .tiles)
+        try container.encode(puzzleTiles, forKey: .puzzleTiles)
+        try container.encode(tileSize, forKey: .tileSize)
+        try container.encode(name, forKey: .name)
     }
 
     //MARK: - Equatable
     static func == (lhs: Puzzle, rhs: Puzzle) -> Bool {
-        for yIndex in lhs.tiles.indices {
-            for xIndex in lhs.tiles.indices {
-                let rhsValue = rhs.tiles[yIndex][xIndex]
-                let lhsValue = lhs.tiles[yIndex][xIndex]
-                if rhsValue != lhsValue {
-                    return false
-                }
-            }
+        if lhs.puzzleTiles != rhs.puzzleTiles {
+            return false
         }
-        
+
+        if lhs.tileSize != rhs.tileSize {
+            return false
+        }
+
+        if lhs.name != rhs.name {
+            return false
+        }
+
         return true
     }
 
     //MARK: - Hashable
     func hash(into hasher: inout Hasher) {
-        hasher.combine(tiles)
+        hasher.combine(puzzleTiles)
+        hasher.combine(tileSize)
+        hasher.combine(name)
     }
 
     //MARK: - Persistence
@@ -93,15 +92,18 @@ class Puzzle: ObservableObject, Codable, Hashable, Equatable {
         let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as NSURL
 
             // add a filename
-        guard let fileUrl = documentsUrl.appendingPathComponent("\(destination).txt") else {
-            print("Failed to create file url: \(destination).txt")
+        guard let fileUrl = documentsUrl.appendingPathComponent("\(destination)") else {
+            print("Failed to create file url: \(destination)")
             return
         }
+
+        print("save path: \(fileUrl.absoluteString)")
 
         let encoder = JSONEncoder()
         do {
             let data = try encoder.encode(self)
             try data.write(to: fileUrl)
+            print("File Written to: \(fileUrl.absoluteString)")
         } catch {
             print("\(error.localizedDescription)")
             return
@@ -113,8 +115,8 @@ class Puzzle: ObservableObject, Codable, Hashable, Equatable {
         let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as NSURL
 
             // add a filename
-        guard let fileUrl = documentsUrl.appendingPathComponent("\(source).txt") else {
-            print("Failed to create file url: \(source).txt")
+        guard let fileUrl = documentsUrl.appendingPathComponent("\(source)") else {
+            print("Failed to create file url: \(source)")
             return nil
         }
 

@@ -7,11 +7,45 @@
 
 import Foundation
 
-class TileLine: ObservableObject {
+class TileLine: ObservableObject, Codable, Hashable {
     @Published var tiles: [Tile]
 
     init(tiles: [Tile]) {
         self.tiles = tiles
+    }
+
+        //MARK: - Codable
+    enum CodingKeys: CodingKey {
+        case tiles
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        tiles = try container.decode([Tile].self, forKey: .tiles)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(tiles, forKey: .tiles)
+    }
+
+        //MARK: - Equatable
+    static func == (lhs: TileLine, rhs: TileLine) -> Bool {
+        for xIndex in lhs.tiles.indices {
+            let rhsValue = rhs.tile(at: xIndex)
+            let lhsValue = lhs.tile(at: xIndex)
+            if rhsValue != lhsValue {
+                return false
+            }
+        }
+
+        return true
+    }
+
+        //MARK: - Hashable
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(tiles)
     }
 
     func tile(at index: Int) -> Tile {

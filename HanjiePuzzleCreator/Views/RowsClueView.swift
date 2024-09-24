@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct RowsClueView: View {
-    @ObservedObject var puzzle: Puzzle
-    @State var tileSize: CGFloat = 16
+    @Binding var puzzle: Puzzle
 
     var body: some View {
         horizontalClues()
@@ -18,7 +17,7 @@ struct RowsClueView: View {
     @ViewBuilder func horizontalClues() -> some View {
         VStack (spacing: 0){
             ForEach(tileLines().indices, id: \.self) { xIndex in
-                HorizontalClueView(tileLine: puzzle.row(number: xIndex), size: tileSize)
+                HorizontalClueView(tileLine: puzzle.row(number: xIndex), size: puzzle.tileSize)
             }
         }
     }
@@ -35,22 +34,22 @@ struct RowsClueView: View {
 }
 
 #Preview {
-    let fourDotPuzzle = Puzzle.fourDots
-    let letterXPuzzle = Puzzle.letterX
-    let framedPuzzle = Puzzle.framed
-    let crosshairPuzzle = Puzzle.crosshair
-    let dash = Puzzle.dash
+    @Previewable @State var fourDotPuzzle = Puzzle.fourDots
+    @Previewable @State var letterXPuzzle = Puzzle.letterX
+    @Previewable @State var framedPuzzle = Puzzle.framed
+    @Previewable @State var crosshairPuzzle = Puzzle.crosshair
+    @Previewable @State var dash = Puzzle.dash
 
     VStack {
-        RowsClueView(puzzle: fourDotPuzzle, tileSize: 16.0)
+        RowsClueView(puzzle: $fourDotPuzzle)
             .background(.red)
-        RowsClueView(puzzle: letterXPuzzle, tileSize: 16.0)
+        RowsClueView(puzzle: $letterXPuzzle)
             .background(.blue)
-        RowsClueView(puzzle: framedPuzzle, tileSize: 16.0)
+        RowsClueView(puzzle: $framedPuzzle)
             .background(.red)
-        RowsClueView(puzzle: crosshairPuzzle, tileSize: 16.0)
+        RowsClueView(puzzle: $crosshairPuzzle)
             .background(.blue)
-        RowsClueView(puzzle: dash, tileSize: 16.0)
+        RowsClueView(puzzle: $dash)
             .background(.red)
     }
 }
