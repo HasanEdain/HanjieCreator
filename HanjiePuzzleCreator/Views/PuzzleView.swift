@@ -20,9 +20,9 @@ struct PuzzleView: View {
             HStack{
                 RowsClueView(puzzle: puzzle)
                 VStack (spacing: 0.0) {
-                    ForEach(puzzle.tiles.indices) { yIndex in
+                    ForEach(puzzle.tiles.indices, id: \.self) { yIndex in
                         HStack (spacing: 0.0) {
-                            ForEach(puzzle.tiles[yIndex].indices) { xIndex in
+                            ForEach(puzzle.tiles[yIndex].indices, id: \.self) { xIndex in
                                 TileView(tile: puzzle.tiles[yIndex][xIndex], size: tileSize)
                             }
                         }
