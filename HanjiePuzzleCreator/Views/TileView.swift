@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TileView: View {
-    @ObservedObject var tile: Tile
+    @StateObject var tile: Tile
     @State var size: CGFloat
 
     var body: some View {
@@ -23,7 +23,6 @@ struct TileView: View {
 }
 
 #Preview {
-    let tilesize: CGFloat = 14.0
     let emptyTile = Tile(tileColor: .empty)
     let primaryTile = Tile(tileColor: .primary)
     let secondaryTile = Tile(tileColor: .second)
@@ -34,6 +33,8 @@ struct TileView: View {
     let seventhTile = Tile(tileColor: .seventh)
     let eigthTile = Tile(tileColor: .eighth)
     let ninthTile = Tile(tileColor: .ninth)
+
+    let tilesize: CGFloat = 14.0
 
     VStack {
         TileView(tile: emptyTile, size: tilesize)

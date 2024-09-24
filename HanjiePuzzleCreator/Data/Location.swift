@@ -8,13 +8,15 @@
 
 import Foundation
 
-class Location: CustomDebugStringConvertible, Comparable {
+class Location: CustomDebugStringConvertible, Comparable, Identifiable {
     let x: Int
     let y: Int
+    let id: UUID
 
-    init(x: Int, y: Int) {
+    init(x: Int, y: Int, id: UUID = UUID()) {
         self.x = x
         self.y = y
+        self.id = id
     }
 
     static func == (lhs: Location, rhs: Location) -> Bool {

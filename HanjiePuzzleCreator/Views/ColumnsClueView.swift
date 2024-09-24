@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ColumnsClueView: View {
-    @StateObject var puzzle: Puzzle
+    @ObservedObject var puzzle: Puzzle
     @State var tileSize: CGFloat = 14
 
     var body: some View {
@@ -18,7 +18,7 @@ struct ColumnsClueView: View {
     @ViewBuilder func verticalClues() -> some View {
 
 
-        HStack {
+        HStack (spacing: 0){
             ForEach(tileLines().indices, id: \.self) { yIndex in
                 VerticalClueView(tileLine: puzzle.column(number: yIndex), size: tileSize)
             }
@@ -39,10 +39,12 @@ struct ColumnsClueView: View {
 #Preview {
     let fourDotPuzzle = Puzzle.fourDots
     let letterXPuzzle = Puzzle.letterX
+    let framedPuzzle = Puzzle.framed
 
     VStack {
         ColumnsClueView(puzzle: fourDotPuzzle, tileSize: 14.0)
         ColumnsClueView(puzzle: letterXPuzzle, tileSize: 14.0)
+        ColumnsClueView(puzzle: framedPuzzle, tileSize: 14.0)
     }
 
 }

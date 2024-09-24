@@ -12,7 +12,9 @@ struct HorizontalClueView: View {
     @State var size: CGFloat
 
     var body: some View {
-        Text("\(tileLine.horizontalString)").frame(width: tileLine.stringSize(tileSize: size), height: size, alignment: .center)
+        Text("\(tileLine.horizontalString)")
+            .frame(width: tileLine.stringSize(tileSize: size), height: size, alignment: .center)
+            .border(.white)
     }
 }
 
@@ -68,28 +70,20 @@ struct HorizontalClueView: View {
 
     VStack {
         HorizontalClueView(tileLine: lineOne, size: size)
-            .border(.red)
             .padding()
         HorizontalClueView(tileLine: lineTwo, size: size)
-            .border(.red)
             .padding()
         HorizontalClueView(tileLine: lineThree, size: size)
-            .border(.red)
             .padding()
         HorizontalClueView(tileLine: lineFour, size: size)
-            .border(.red)
             .padding()
         HorizontalClueView(tileLine: lineFive, size: size)
-            .border(.red)
             .padding()
         HorizontalClueView(tileLine: lineSix, size: size)
-            .border(.red)
             .padding()
         HorizontalClueView(tileLine: lineSeven, size: size)
-            .border(.red)
             .padding()
         HorizontalClueView(tileLine: lineEight, size: size)
-            .border(.red)
             .padding()
     }
 }

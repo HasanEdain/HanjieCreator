@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RowsClueView: View {
-    @StateObject var puzzle: Puzzle
+    @ObservedObject var puzzle: Puzzle
     @State var tileSize: CGFloat = 14
 
     var body: some View {
@@ -16,7 +16,7 @@ struct RowsClueView: View {
     }
 
     @ViewBuilder func horizontalClues() -> some View {
-        VStack {
+        VStack (spacing: 0){
             ForEach(tileLines().indices, id: \.self) { xIndex in
                 HorizontalClueView(tileLine: puzzle.row(number: xIndex), size: tileSize)
             }
@@ -37,10 +37,12 @@ struct RowsClueView: View {
 #Preview {
     let fourDotPuzzle = Puzzle.fourDots
     let letterXPuzzle = Puzzle.letterX
+    let framedPuzzle = Puzzle.framed
 
     VStack {
         RowsClueView(puzzle: fourDotPuzzle, tileSize: 14.0)
         RowsClueView(puzzle: letterXPuzzle, tileSize: 14.0)
+        RowsClueView(puzzle: framedPuzzle, tileSize: 14.0)
     }
 }
 

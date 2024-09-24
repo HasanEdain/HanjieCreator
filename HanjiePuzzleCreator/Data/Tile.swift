@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUICore
 
 
 class Tile: ObservableObject, Identifiable, Hashable, Equatable, Codable {

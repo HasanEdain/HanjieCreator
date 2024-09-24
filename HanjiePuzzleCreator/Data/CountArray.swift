@@ -7,6 +7,6 @@
 
 import Foundation
 
-class CountArray {
-    var counts: [Int] = []
+class CountArray: ObservableObject, Identifiable {
+    @Published var counts: [Int] = []
 }
