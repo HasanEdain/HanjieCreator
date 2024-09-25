@@ -8,45 +8,58 @@
 import SwiftUI
 
 struct TileView: View {
-    @ObservedObject var tile: Tile
-    @State var size: CGFloat
+    @EnvironmentObject var puzzle:Puzzle
+
+    let location: Location
 
     var body: some View {
         Rectangle()
             .foregroundColor(tile.tileColor.color)
-            .frame(width: size, height: size)
+            .frame(width: puzzle.tileSize, height: puzzle.tileSize)
             .border(.black)
             .onTapGesture {
                 tile.toggle()
             }
     }
+
+    var tile: Tile {
+        puzzle.tile(at: location)
+    }
 }
 
 #Preview {
-    let emptyTile = Tile(tileColor: .empty)
-    let primaryTile = Tile(tileColor: .primary)
-    let secondaryTile = Tile(tileColor: .second)
-    let tertiaryTile = Tile(tileColor: .third)
-    let fourthTile = Tile(tileColor: .fourth)
-    let fifthTile = Tile(tileColor: .fifth)
-    let sixthTile = Tile(tileColor: .sixth)
-    let seventhTile = Tile(tileColor: .seventh)
-    let eigthTile = Tile(tileColor: .eighth)
-    let ninthTile = Tile(tileColor: .ninth)
-
-    let tilesize: CGFloat = 16.0
+    let locationOne = Location(x: 0, y: 0)
+    let locationTwo = Location(x: 1, y: 0)
+    let locationThree = Location(x: 2, y: 0)
+    let locationFour = Location(x: 3, y: 0)
+    let locationFive = Location(x: 4, y: 0)
+    let locationSix = Location(x: 5, y: 0)
+    let locationSeven = Location(x: 6, y: 0)
+    let locationEight = Location(x: 7, y: 0)
+    let locationNine = Location(x: 8, y: 0)
+    let locationTen = Location(x: 9, y: 0)
 
     VStack {
-        TileView(tile: emptyTile, size: tilesize)
-        TileView(tile: primaryTile, size: tilesize)
-        TileView(tile: secondaryTile, size: tilesize)
-        TileView(tile: tertiaryTile, size: tilesize)
-        TileView(tile: fourthTile, size: tilesize)
-        TileView(tile: fifthTile, size: tilesize)
-        TileView(tile: sixthTile, size: tilesize)
-        TileView(tile: seventhTile, size: tilesize)
-        TileView(tile: eigthTile, size: tilesize)
-        TileView(tile: ninthTile, size: tilesize)
+        TileView(location: locationOne)
+            .environmentObject( ExamplePuzzles.rainbow)
+        TileView(location: locationTwo)
+            .environmentObject( ExamplePuzzles.rainbow)
+        TileView(location: locationThree)
+            .environmentObject( ExamplePuzzles.rainbow)
+        TileView(location: locationFour)
+            .environmentObject( ExamplePuzzles.rainbow)
+        TileView(location: locationFive)
+            .environmentObject( ExamplePuzzles.rainbow)
+        TileView(location: locationSix)
+            .environmentObject( ExamplePuzzles.rainbow)
+        TileView(location: locationSeven)
+            .environmentObject( ExamplePuzzles.rainbow)
+        TileView(location: locationEight)
+            .environmentObject( ExamplePuzzles.rainbow)
+        TileView(location: locationNine)
+            .environmentObject( ExamplePuzzles.rainbow)
+        TileView(location: locationTen)
+            .environmentObject( ExamplePuzzles.rainbow)
     }.padding()
 
 }

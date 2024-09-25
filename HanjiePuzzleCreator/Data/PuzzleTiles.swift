@@ -27,6 +27,13 @@ class PuzzleTiles:ObservableObject, Codable, Equatable, Hashable {
     }
 
     //MARK: - Access
+
+    func clear() {
+        tileLines.forEach { tileLine in
+            tileLine.clear()
+        }
+    }
+
     func tile(at location: Location) -> Tile {
         let tileLine = tileLines[location.y]
         let tile = tileLine.tiles[location.x]

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PuzzleView: View {
-    @ObservedObject var puzzle: Puzzle
+    @EnvironmentObject var puzzle: Puzzle
 
     var body: some View {
         
@@ -16,7 +16,7 @@ struct PuzzleView: View {
             ForEach($puzzle.puzzleTiles.tileLines.indices, id: \.self) { yIndex in
                 HStack (spacing: 0.0) {
                     ForEach(puzzle.puzzleTiles.tileLines[yIndex].tiles.indices, id: \.self) { xIndex in
-                        TileView(tile: puzzle.puzzleTiles.tileLines[yIndex].tiles[xIndex], size: puzzle.tileSize)
+                        TileView(location: Location(x: xIndex, y: yIndex))
                     }
                 }
             }
@@ -28,17 +28,27 @@ struct PuzzleView: View {
 
 #Preview {
     let puzzle = Puzzle()
-    let frame = Puzzle.framed
-    let four = Puzzle.fourDots
-    let x = Puzzle.letterX
-    let crosshair = Puzzle.crosshair
+    let frame =  ExamplePuzzles.framed
+    let four =  ExamplePuzzles.fourDots
+    let x =  ExamplePuzzles.letterX
+    let crosshair =  ExamplePuzzles.crosshair
 
     VStack {
-        PuzzleView(puzzle: puzzle).padding()
-        PuzzleView(puzzle: crosshair).padding()
-        PuzzleView(puzzle: frame).padding()
-        PuzzleView(puzzle: four).padding()
-        PuzzleView(puzzle: x).padding()
+        PuzzleView()
+            .environmentObject(puzzle)
+            .padding()
+        PuzzleView()
+            .environmentObject(crosshair)
+            .padding()
+        PuzzleView()
+            .environmentObject(frame)
+            .padding()
+        PuzzleView()
+            .environmentObject(four)
+            .padding()
+        PuzzleView()
+            .environmentObject(x)
+            .padding()
     }
 
 }

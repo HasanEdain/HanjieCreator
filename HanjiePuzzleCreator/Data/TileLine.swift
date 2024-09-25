@@ -9,16 +9,11 @@ import Foundation
 
 class TileLine: ObservableObject, Codable, Hashable, Identifiable {
     @Published var tiles: [Tile]
-    @Published var horizontalDisplayText: String = ""
-    @Published var verticalDisplayText: String = ""
     let id: UUID
 
     init(tiles: [Tile], id: UUID = UUID()) {
         self.tiles = tiles
         self.id = id
-
-        horizontalDisplayText = horizontalString
-        verticalDisplayText = verticalString
     }
 
         //MARK: - Codable
@@ -57,6 +52,13 @@ class TileLine: ObservableObject, Codable, Hashable, Identifiable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(tiles)
         hasher.combine(id)
+    }
+
+    //MARK: - Access
+    func clear() {
+        tiles.forEach { tile in
+            tile.clear()
+        }
     }
 
     func tile(at index: Int) -> Tile {

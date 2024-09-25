@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RowsClueView: View {
-    @ObservedObject var puzzle: Puzzle
+    @EnvironmentObject var puzzle: Puzzle
 
     var body: some View {
         horizontalClues()
@@ -17,30 +17,30 @@ struct RowsClueView: View {
     @ViewBuilder func horizontalClues() -> some View {
         VStack (spacing: 0){
             ForEach(puzzle.puzzleTiles.tileLines.indices, id: \.self) { xIndex in
-                HorizontalClueView(tileLine: puzzle.puzzleTiles.tileLines[xIndex], size: puzzle.tileSize)
+                HorizontalClueView(rowNumber: xIndex)
             }
-        }
+        }.border(.blue)
     }
 }
 
 #Preview {
-    let fourDotPuzzle = Puzzle.fourDots
-    let letterXPuzzle = Puzzle.letterX
-    let framedPuzzle = Puzzle.framed
-    let crosshairPuzzle = Puzzle.crosshair
-    let dash = Puzzle.dash
+    let fourDotPuzzle =  ExamplePuzzles.fourDots
+    let letterXPuzzle =  ExamplePuzzles.letterX
+    let framedPuzzle =  ExamplePuzzles.framed
+    let crosshairPuzzle =  ExamplePuzzles.crosshair
+    let dash =  ExamplePuzzles.dash
 
     VStack {
-        RowsClueView(puzzle: fourDotPuzzle)
-            .background(.red)
-        RowsClueView(puzzle: letterXPuzzle)
-            .background(.blue)
-        RowsClueView(puzzle: framedPuzzle)
-            .background(.red)
-        RowsClueView(puzzle: crosshairPuzzle)
-            .background(.blue)
-        RowsClueView(puzzle: dash)
-            .background(.red)
+        RowsClueView()
+            .environmentObject(fourDotPuzzle)
+        RowsClueView()
+            .environmentObject(letterXPuzzle)
+        RowsClueView()
+            .environmentObject(framedPuzzle)
+        RowsClueView()
+            .environmentObject(crosshairPuzzle)
+        RowsClueView()
+            .environmentObject(dash)
     }
 }
 

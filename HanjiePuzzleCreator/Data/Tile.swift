@@ -1,39 +1,41 @@
-//
-//  Tile.swift
-//  HanjiePuzzleCreator
-//
-//  Created by Hasan Edain on 9/23/24.
-//
+    //
+    //  Tile.swift
+    //  HanjiePuzzleCreator
+    //
+    //  Created by Hasan Edain on 9/23/24.
+    //
 
 import Foundation
 import SwiftUICore
 
 
 class Tile: ObservableObject, Identifiable, Hashable, Equatable, Codable {
-    @Published var id: UUID
+    let id: UUID
     @Published var tileColor: TileColor
-    @Published var didTap: Bool = false
 
-    //MARK: -
+        //MARK: - Init
     init(id: UUID = UUID(), tileColor: TileColor = .empty) {
         self.id = id
         self.tileColor = tileColor
     }
 
+        //MARK: state
+    func clear() {
+        tileColor = .empty
+    }
     func toggle() {
-        if tileColor == .empty {
-            tileColor = .primary
+        if self.tileColor == .empty {
+            self.tileColor = .primary
         } else {
-            tileColor = .empty
+            self.tileColor = .empty
         }
-        didTap.toggle()
     }
 
     var isOn: Bool {
         return tileColor != .empty
     }
 
-    //MARK: - Codable
+        //MARK: - Codable
     enum CodingKeys: CodingKey {
         case id
         case tileColor
@@ -51,13 +53,13 @@ class Tile: ObservableObject, Identifiable, Hashable, Equatable, Codable {
         try container.encode(tileColor, forKey: .tileColor)
     }
 
-    //MARK: - Hashable
+        //MARK: - Hashable
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
         hasher.combine(tileColor)
     }
 
-    //MARK: - Equatable
+        //MARK: - Equatable
     static func == (lhs: Tile, rhs: Tile) -> Bool {
         return lhs.tileColor == rhs.tileColor
     }

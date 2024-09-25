@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EmptyPuzzleView: View {
-    @ObservedObject var puzzle: Puzzle
+    @EnvironmentObject var puzzle: Puzzle
 
     var body: some View {
 
@@ -16,7 +16,7 @@ struct EmptyPuzzleView: View {
             ForEach(puzzle.puzzleTiles.tileLines.indices, id: \.self) { yIndex in
                 HStack (spacing: 0.0) {
                     ForEach(puzzle.puzzleTiles.tileLines[yIndex].tiles.indices, id: \.self) { xIndex in
-                        TileView(tile: Tile(), size: puzzle.tileSize)
+                        EmptyTileView()
                     }
                 }
             }
@@ -27,17 +27,27 @@ struct EmptyPuzzleView: View {
 
 #Preview {
     let puzzle = Puzzle()
-    let frame = Puzzle.framed
-    let four = Puzzle.fourDots
-    let x = Puzzle.letterX
-    let crosshair = Puzzle.crosshair
+    let frame =  ExamplePuzzles.framed
+    let four =  ExamplePuzzles.fourDots
+    let x =  ExamplePuzzles.letterX
+    let crosshair =  ExamplePuzzles.crosshair
 
     VStack {
-        EmptyPuzzleView(puzzle: puzzle).padding()
-        EmptyPuzzleView(puzzle: crosshair).padding()
-        EmptyPuzzleView(puzzle: frame).padding()
-        EmptyPuzzleView(puzzle: four).padding()
-        EmptyPuzzleView(puzzle: x).padding()
+        EmptyPuzzleView()
+            .environmentObject(puzzle)
+            .padding()
+        EmptyPuzzleView()
+            .environmentObject(frame)
+            .padding()
+        EmptyPuzzleView()
+            .environmentObject(four)
+            .padding()
+        EmptyPuzzleView()
+            .environmentObject(x)
+            .padding()
+        EmptyPuzzleView()
+            .environmentObject(crosshair)
+            .padding()
     }
 
 }

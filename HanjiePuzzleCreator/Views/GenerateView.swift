@@ -8,18 +8,15 @@
 import SwiftUI
 
 struct GenerateView: View {
-    @ObservedObject var puzzle: Puzzle
-
-    @State var showHints: Bool = false
+    @EnvironmentObject var puzzle: Puzzle
     @State var saveCountString: String = "0"
 
     var body: some View {
         HStack {
             Form {
-                Button("Toggle") {
-                    showHints.toggle()
+                Button("Clear") {
+                    clear()
                 }.padding()
-
                 TextField(text: $puzzle.name) {
                     Label(
                         title: { Text("Name") },
@@ -38,10 +35,17 @@ struct GenerateView: View {
                 Button("Load") {
                     load()
                 }.padding()
-            }.frame(width: 256)
+            }
+            .frame(width: 256)
+            .padding()
 
-            PrintablePuzzleView(showHints: $showHints, puzzle: puzzle).padding()
+            PrintablePuzzleView(isEmpty: false)
+                .padding()
         }
+    }
+
+    func clear(){
+        puzzle.clear()
     }
 
     func load() {
@@ -52,14 +56,7 @@ struct GenerateView: View {
         }
 
         let textString = "\(self.puzzle.name)_\(saveCount)_puzzle.json"
-        if let safePuzzle = Puzzle.load(source: textString) {
-            puzzle.name = safePuzzle.name
-            puzzle.tileSize = safePuzzle.tileSize
-            puzzle.puzzleTiles = safePuzzle.puzzleTiles
-        } else {
-            print("failed to load: \(textString)")
-        }
-
+        puzzle.load(source: textString)
     }
 
     @MainActor func save() {
@@ -117,16 +114,19 @@ struct GenerateView: View {
     }
 
     @ViewBuilder var solvedPuzzleView: some View {
-        PrintablePuzzleView(showHints:$showHints, puzzle: puzzle)
+        PrintablePuzzleView(isEmpty: false)
+            .environmentObject(puzzle)
     }
 
     @ViewBuilder var puzzleView: some View {
-        PrintablePuzzleView(showHints:$showHints, puzzle: puzzle, isEmpty: true)
+        PrintablePuzzleView(isEmpty: true)
+            .environmentObject(puzzle)
     }
 }
 
 #Preview {
-    let four = Puzzle.fourDots
+    let four =  ExamplePuzzles.fourDots
 
-    GenerateView(puzzle: four)
+    GenerateView()
+        .environmentObject(four)
 }

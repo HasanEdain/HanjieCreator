@@ -19,20 +19,6 @@ class Puzzle: ObservableObject, Codable, Hashable, Equatable {
         self.tileSize = size
         self.name = name
         self.puzzleTiles = PuzzleTiles(width: width, height: height)
-        updateOnTap()
-    }
-
-    func updateOnTap() {
-        puzzleTiles.tileLines.forEach {tileLine in
-            tileLine.tiles.forEach { tile in
-                tile.$didTap.sink { _ in
-                    tileLine.horizontalDisplayText = tileLine.horizontalString
-                    tileLine.verticalDisplayText = tileLine.verticalString
-                    print("vert: \(tileLine.verticalDisplayText) \(tileLine.verticalString)")
-
-                }.store(in: &cancelable)
-            }
-        }
     }
 
     func update(color: TileColor, location: Location) {
@@ -41,6 +27,10 @@ class Puzzle: ObservableObject, Codable, Hashable, Equatable {
     }
 
     //MARK: - Access
+    func clear() {
+        puzzleTiles.clear()
+    }
+
     func row(number: Int) -> TileLine {
         return puzzleTiles.row(number: number)
     }
@@ -55,6 +45,10 @@ class Puzzle: ObservableObject, Codable, Hashable, Equatable {
 
     var height: Int {
         return puzzleTiles.height
+    }
+
+    func tile(at location: Location) -> Tile {
+        return puzzleTiles.tile(at: location)
     }
 
     //MARK: - Codable
@@ -126,176 +120,29 @@ class Puzzle: ObservableObject, Codable, Hashable, Equatable {
         }
     }
 
-    static func load(source: String) -> Puzzle? {
+    func load(source: String) {
             // get URL to the the documents directory in the sandbox
         let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as NSURL
 
             // add a filename
         guard let fileUrl = documentsUrl.appendingPathComponent("\(source)") else {
             print("Failed to create file url: \(source)")
-            return nil
+            return
         }
 
         do {
             if let data = Data.ReferenceType(contentsOf: fileUrl) {
                 let decoder = JSONDecoder()
-                let puzzle = try decoder.decode(Puzzle.self, from: data as Data)
+                let loadPuzzle = try decoder.decode(Puzzle.self, from: data as Data)
 
-                return puzzle
+                puzzleTiles = loadPuzzle.puzzleTiles
+                tileSize = loadPuzzle.tileSize
+                name = loadPuzzle.name
             }
         } catch {
             print("\(error.localizedDescription)")
-            return nil
+            return
         }
-        return nil
-    }
-
-    static var dash: Puzzle {
-        let puz = Puzzle()
-
-        puz.update(color: .primary, location: Location(x: 0, y: 2))
-        puz.update(color: .primary, location: Location(x: 1, y: 2))
-        puz.update(color: .primary, location: Location(x: 2, y: 2))
-        puz.update(color: .primary, location: Location(x: 3, y: 2))
-        puz.update(color: .primary, location: Location(x: 4, y: 2))
-        puz.update(color: .primary, location: Location(x: 5, y: 2))
-        puz.update(color: .primary, location: Location(x: 6, y: 2))
-        puz.update(color: .primary, location: Location(x: 7, y: 2))
-        puz.update(color: .primary, location: Location(x: 8, y: 2))
-        puz.update(color: .primary, location: Location(x: 9, y: 2))
-
-        return puz
-    }
-
-    static var fourDots: Puzzle {
-        let puz = Puzzle()
-
-        puz.update(color: .primary, location: Location(x: 2, y: 2))
-        puz.update(color: .primary, location: Location(x: 3, y: 2))
-
-        puz.update(color: .primary, location: Location(x: 2, y: 3))
-        puz.update(color: .primary, location: Location(x: 3, y: 3))
-
-        puz.update(color: .primary, location: Location(x: 7, y: 2))
-        puz.update(color: .primary, location: Location(x: 8, y: 2))
-
-        puz.update(color: .primary, location: Location(x: 7, y: 3))
-        puz.update(color: .primary, location: Location(x: 8, y: 3))
-
-        puz.update(color: .primary, location: Location(x: 2, y: 7))
-        puz.update(color: .primary, location: Location(x: 3, y: 7))
-
-        puz.update(color: .primary, location: Location(x: 2, y: 8))
-        puz.update(color: .primary, location: Location(x: 3, y: 8))
-
-        puz.update(color: .primary, location: Location(x: 7, y: 7))
-        puz.update(color: .primary, location: Location(x: 8, y: 7))
-
-        puz.update(color: .primary, location: Location(x: 7, y: 8))
-        puz.update(color: .primary, location: Location(x: 8, y: 8))
-
-        return puz
-    }
-
-    static var crosshair: Puzzle {
-        let puz = Puzzle()
-
-        puz.update(color: .primary, location: Location(x: 4, y: 0))
-        puz.update(color: .primary, location: Location(x: 4, y: 1))
-        puz.update(color: .primary, location: Location(x: 4, y: 2))
-        puz.update(color: .primary, location: Location(x: 4, y: 3))
-        puz.update(color: .primary, location: Location(x: 4, y: 4))
-        puz.update(color: .primary, location: Location(x: 4, y: 5))
-        puz.update(color: .primary, location: Location(x: 4, y: 6))
-        puz.update(color: .primary, location: Location(x: 4, y: 7))
-        puz.update(color: .primary, location: Location(x: 4, y: 8))
-        puz.update(color: .primary, location: Location(x: 4, y: 9))
-
-        puz.update(color: .primary, location: Location(x: 0, y: 4))
-        puz.update(color: .primary, location: Location(x: 1, y: 4))
-        puz.update(color: .primary, location: Location(x: 2, y: 4))
-        puz.update(color: .primary, location: Location(x: 3, y: 4))
-        puz.update(color: .primary, location: Location(x: 5, y: 4))
-        puz.update(color: .primary, location: Location(x: 6, y: 4))
-        puz.update(color: .primary, location: Location(x: 7, y: 4))
-        puz.update(color: .primary, location: Location(x: 8, y: 4))
-        puz.update(color: .primary, location: Location(x: 9, y: 4))
-
-
-        return puz
-    }
-
-    static var letterX: Puzzle {
-        let puz = Puzzle()
-
-        puz.update(color: .primary, location: Location(x: 0, y: 0))
-        puz.update(color: .primary, location: Location(x: 1, y: 1))
-        puz.update(color: .primary, location: Location(x: 2, y: 2))
-        puz.update(color: .primary, location: Location(x: 3, y: 3))
-        puz.update(color: .primary, location: Location(x: 4, y: 4))
-        puz.update(color: .primary, location: Location(x: 5, y: 5))
-        puz.update(color: .primary, location: Location(x: 6, y: 6))
-        puz.update(color: .primary, location: Location(x: 7, y: 7))
-        puz.update(color: .primary, location: Location(x: 8, y: 8))
-        puz.update(color: .primary, location: Location(x: 9, y: 9))
-
-        puz.update(color: .primary, location: Location(x: 9, y: 0))
-        puz.update(color: .primary, location: Location(x: 8, y: 1))
-        puz.update(color: .primary, location: Location(x: 7, y: 2))
-        puz.update(color: .primary, location: Location(x: 6, y: 3))
-        puz.update(color: .primary, location: Location(x: 5, y: 4))
-        puz.update(color: .primary, location: Location(x: 4, y: 5))
-        puz.update(color: .primary, location: Location(x: 3, y: 6))
-        puz.update(color: .primary, location: Location(x: 2, y: 7))
-        puz.update(color: .primary, location: Location(x: 1, y: 8))
-        puz.update(color: .primary, location: Location(x: 0, y: 9))
-
-        return puz
-    }
-
-    static var framed: Puzzle {
-        let puz = Puzzle()
-
-        puz.update(color: .primary, location: Location(x: 0, y: 0))
-        puz.update(color: .primary, location: Location(x: 1, y: 0))
-        puz.update(color: .primary, location: Location(x: 2, y: 0))
-        puz.update(color: .primary, location: Location(x: 3, y: 0))
-        puz.update(color: .primary, location: Location(x: 4, y: 0))
-        puz.update(color: .primary, location: Location(x: 5, y: 0))
-        puz.update(color: .primary, location: Location(x: 6, y: 0))
-        puz.update(color: .primary, location: Location(x: 7, y: 0))
-        puz.update(color: .primary, location: Location(x: 8, y: 0))
-        puz.update(color: .primary, location: Location(x: 9, y: 0))
-
-        puz.update(color: .primary, location: Location(x: 0, y: 9))
-        puz.update(color: .primary, location: Location(x: 1, y: 9))
-        puz.update(color: .primary, location: Location(x: 2, y: 9))
-        puz.update(color: .primary, location: Location(x: 3, y: 9))
-        puz.update(color: .primary, location: Location(x: 4, y: 9))
-        puz.update(color: .primary, location: Location(x: 5, y: 9))
-        puz.update(color: .primary, location: Location(x: 6, y: 9))
-        puz.update(color: .primary, location: Location(x: 7, y: 9))
-        puz.update(color: .primary, location: Location(x: 8, y: 9))
-        puz.update(color: .primary, location: Location(x: 9, y: 9))
-
-        puz.update(color: .primary, location: Location(x: 0, y: 1))
-        puz.update(color: .primary, location: Location(x: 0, y: 2))
-        puz.update(color: .primary, location: Location(x: 0, y: 3))
-        puz.update(color: .primary, location: Location(x: 0, y: 4))
-        puz.update(color: .primary, location: Location(x: 0, y: 5))
-        puz.update(color: .primary, location: Location(x: 0, y: 6))
-        puz.update(color: .primary, location: Location(x: 0, y: 7))
-        puz.update(color: .primary, location: Location(x: 0, y: 8))
-
-        puz.update(color: .primary, location: Location(x: 9, y: 1))
-        puz.update(color: .primary, location: Location(x: 9, y: 2))
-        puz.update(color: .primary, location: Location(x: 9, y: 3))
-        puz.update(color: .primary, location: Location(x: 9, y: 4))
-        puz.update(color: .primary, location: Location(x: 9, y: 5))
-        puz.update(color: .primary, location: Location(x: 9, y: 6))
-        puz.update(color: .primary, location: Location(x: 9, y: 7))
-        puz.update(color: .primary, location: Location(x: 9, y: 8))
-
-        return puz
+        return
     }
 }

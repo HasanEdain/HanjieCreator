@@ -8,43 +8,40 @@
 import SwiftUI
 
 struct ColumnsClueView: View {
-    @ObservedObject var puzzle: Puzzle
+    @EnvironmentObject var puzzle: Puzzle
 
     var body: some View {
-        verticalClues()
-    }
-
-    @ViewBuilder func verticalClues() -> some View {
         HStack (spacing: 0){
             ForEach(puzzle.puzzleTiles.tileLines.indices, id: \.self) { yIndex in
-                VerticalClueView(tileLine: puzzle.column(number: yIndex), size: puzzle.tileSize).frame(height: puzzle.column(number: yIndex).stringSize(tileSize: puzzle.tileSize))
+                VerticalClueView(columnNumber: yIndex)
+                    .frame(height: puzzle.column(number: yIndex).stringSize(tileSize: puzzle.tileSize))
             }
-        }
+        }.border(.blue)
     }
 }
 
 #Preview {
-    let fourDotPuzzle = Puzzle.fourDots
-    let letterXPuzzle = Puzzle.letterX
-    let framedPuzzle = Puzzle.framed
-    let crosshair = Puzzle.crosshair
-    let dash = Puzzle.dash
+    let fourDotPuzzle = ExamplePuzzles.fourDots
+    let letterXPuzzle =  ExamplePuzzles.letterX
+    let framedPuzzle =  ExamplePuzzles.framed
+    let crosshair =  ExamplePuzzles.crosshair
+    let dash =  ExamplePuzzles.dash
 
     VStack {
-        ColumnsClueView(puzzle: fourDotPuzzle)
-            .border(.red)
+        ColumnsClueView()
+            .environmentObject(fourDotPuzzle)
             .padding()
-        ColumnsClueView(puzzle: letterXPuzzle)
-            .border(.red)
+        ColumnsClueView()
+            .environmentObject(letterXPuzzle)
             .padding()
-        ColumnsClueView(puzzle: framedPuzzle)
-            .border(.red)
+        ColumnsClueView()
+            .environmentObject(framedPuzzle)
             .padding()
-        ColumnsClueView(puzzle: crosshair)
-            .border(.red)
+        ColumnsClueView()
+            .environmentObject(crosshair)
             .padding()
-        ColumnsClueView(puzzle: dash)
-            .border(.red)
+        ColumnsClueView()
+            .environmentObject(dash)
             .padding()
     }
 

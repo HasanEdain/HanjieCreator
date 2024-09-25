@@ -8,89 +8,64 @@
 import SwiftUI
 
 struct HorizontalClueView: View {
-    @ObservedObject var tileLine: TileLine
-    @State var size: CGFloat
+    @EnvironmentObject var puzzle: Puzzle
+
+    let rowNumber: Int
 
     var body: some View {
-        Text("\(tileLine.horizontalDisplayText)")
+        Text("\(tileLine.horizontalString)")
             .frame(height: size, alignment: .center)
     }
+
+    var tileLine: TileLine {
+        return puzzle.row(number: rowNumber)
+    }
+
+    var  size: CGFloat {
+        return puzzle.tileSize
+    }
+
 }
 
 #Preview {
-    let lineOne = TileLine(tiles: [Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile()])
-    let lineTwo = TileLine(tiles: [Tile(),
-                                   Tile(tileColor: TileColor.primary),
-                                   Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile()])
-    let lineThree = TileLine(tiles: [Tile(),
-                                     Tile(tileColor: TileColor.primary),
-                                     Tile(tileColor: TileColor.primary),
-                                     Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile()])
-    let lineFour = TileLine(tiles: [Tile(),
-                                    Tile(tileColor: TileColor.primary),
-                                    Tile(tileColor: TileColor.primary),
-                                    Tile(tileColor: TileColor.primary),
-                                    Tile(),Tile(),Tile(),Tile(),Tile(),Tile()])
-    let lineFive = TileLine(tiles: [Tile(),
-                                    Tile(tileColor: TileColor.primary),
-                                    Tile(tileColor: TileColor.primary),
-                                    Tile(),Tile(),
-                                    Tile(tileColor: TileColor.primary),
-                                    Tile(tileColor: TileColor.primary),
-                                    Tile(),Tile(),Tile()])
-    let lineSix = TileLine(tiles: [Tile(),
-                                   Tile(tileColor: TileColor.primary),
-                                   Tile(),
-                                   Tile(tileColor: TileColor.primary),
-                                   Tile(),
-                                   Tile(tileColor: TileColor.primary),
-                                   Tile(),Tile(),Tile(),Tile()])
-    let lineSeven = TileLine(tiles: [Tile(),
-                                     Tile(tileColor: TileColor.primary),
-                                     Tile(tileColor: TileColor.primary),
-                                     Tile(),
-                                     Tile(tileColor: TileColor.primary),
-                                     Tile(tileColor: TileColor.primary),
-                                     Tile(),
-                                     Tile(tileColor: TileColor.primary),
-                                     Tile(tileColor: TileColor.primary),
-                                     Tile()])
-    let lineEight = TileLine(tiles: [Tile(tileColor: TileColor.primary),
-                                     Tile(),
-                                     Tile(tileColor: TileColor.primary),
-                                     Tile(tileColor: TileColor.primary),
-                                     Tile(),
-                                     Tile(tileColor: TileColor.primary),
-                                     Tile(tileColor: TileColor.primary),
-                                     Tile(tileColor: TileColor.primary),
-                                     Tile(),
-                                     Tile(tileColor: TileColor.primary)])
-
-    let size: CGFloat = 16.0
-
     VStack {
-        HorizontalClueView(tileLine: lineOne, size: size)
+        HorizontalClueView(rowNumber: 0)
+            .environmentObject(ExamplePuzzles.letterX)
             .border(.red)
             .padding()
-        HorizontalClueView(tileLine: lineTwo, size: size)
+        HorizontalClueView(rowNumber: 1)
+            .environmentObject(ExamplePuzzles.letterX)
             .border(.red)
             .padding()
-        HorizontalClueView(tileLine: lineThree, size: size)
+        HorizontalClueView(rowNumber: 2)
+            .environmentObject(ExamplePuzzles.letterX)
+            .padding()
+        HorizontalClueView(rowNumber: 3)
+            .environmentObject(ExamplePuzzles.letterX)
             .border(.red)
             .padding()
-        HorizontalClueView(tileLine: lineFour, size: size)
+        HorizontalClueView(rowNumber: 4)
+            .environmentObject(ExamplePuzzles.letterX)
             .border(.red)
             .padding()
-        HorizontalClueView(tileLine: lineFive, size: size)
+        HorizontalClueView(rowNumber: 5)
+            .environmentObject(ExamplePuzzles.letterX)
             .border(.red)
             .padding()
-        HorizontalClueView(tileLine: lineSix, size: size)
+        HorizontalClueView(rowNumber: 6)
+            .environmentObject(ExamplePuzzles.letterX)
             .border(.red)
             .padding()
-        HorizontalClueView(tileLine: lineSeven, size: size)
+        HorizontalClueView(rowNumber: 7)
+            .environmentObject(ExamplePuzzles.letterX)
             .border(.red)
             .padding()
-        HorizontalClueView(tileLine: lineEight, size: size)
+        HorizontalClueView(rowNumber: 8)
+            .environmentObject(ExamplePuzzles.letterX)
+            .border(.red)
+            .padding()
+        HorizontalClueView(rowNumber: 8)
+            .environmentObject(ExamplePuzzles.letterX)
             .border(.red)
             .padding()
     }
