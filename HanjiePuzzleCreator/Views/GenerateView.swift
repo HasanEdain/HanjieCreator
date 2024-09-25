@@ -71,12 +71,11 @@ struct GenerateView: View {
         }
 
         let homeURL = FileManager.default.homeDirectoryForCurrentUser
-        let solvedUrl = homeURL.appending(path: "\(puzzle.name)_\(saveCount)_solved.pdf")
-        let unsolvedUrl = homeURL.appending(path: "\(puzzle.name)_\(saveCount)_puzzle.pdf")
+        let solvedUrl = homeURL.appending(path: "Downloads/Hanjie/\(puzzle.name)_\(saveCount)_solved.pdf")
+        let unsolvedUrl = homeURL.appending(path: "Downloads/Hanjie/\(puzzle.name)_\(saveCount)_puzzle.pdf")
         print("Solved PDF: \(solvedUrl.absoluteString)")
+
         let textString = "\(puzzle.name)_\(saveCount)_puzzle.json"
-        let textUrl = homeURL.appending(path: textString)
-//        saveText(url: textUrl)
         puzzle.save(destination: textString)
 
         rendererSolved.render { size, renderInContext in

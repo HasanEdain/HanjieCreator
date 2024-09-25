@@ -89,10 +89,10 @@ class Puzzle: ObservableObject, Codable, Hashable, Equatable {
     //MARK: - Persistence
     func save(destination: String) {
             // get URL to the the documents directory in the sandbox
-        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as NSURL
+        let documentsUrl = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)[0] as NSURL
 
             // add a filename
-        guard let fileUrl = documentsUrl.appendingPathComponent("\(destination)") else {
+        guard let fileUrl = documentsUrl.appendingPathComponent("Hanjie/\(destination)") else {
             print("Failed to create file url: \(destination)")
             return
         }
