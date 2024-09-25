@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EmptyPuzzleView: View {
-    @Binding var puzzle: Puzzle
+    @ObservedObject var puzzle: Puzzle
 
     var body: some View {
 
@@ -16,7 +16,7 @@ struct EmptyPuzzleView: View {
             ForEach(puzzle.puzzleTiles.tiles.indices, id: \.self) { yIndex in
                 HStack (spacing: 0.0) {
                     ForEach(puzzle.puzzleTiles.tiles[yIndex].tiles.indices, id: \.self) { xIndex in
-                        TileView(tile: $puzzle.puzzleTiles.tiles[yIndex].tiles[xIndex], size: $puzzle.tileSize)
+                        TileView(tile: puzzle.puzzleTiles.tiles[yIndex].tiles[xIndex], size: puzzle.tileSize)
                     }
                 }
             }
@@ -33,11 +33,11 @@ struct EmptyPuzzleView: View {
     @Previewable @State var crosshair = Puzzle.crosshair
 
     VStack {
-        EmptyPuzzleView(puzzle: $puzzle).padding()
-        EmptyPuzzleView(puzzle: $crosshair).padding()
-        EmptyPuzzleView(puzzle: $frame).padding()
-        EmptyPuzzleView(puzzle: $four).padding()
-        EmptyPuzzleView(puzzle: $x).padding()
+        EmptyPuzzleView(puzzle: puzzle).padding()
+        EmptyPuzzleView(puzzle: crosshair).padding()
+        EmptyPuzzleView(puzzle: frame).padding()
+        EmptyPuzzleView(puzzle: four).padding()
+        EmptyPuzzleView(puzzle: x).padding()
     }
 
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ColumnsClueView: View {
-    @Binding var puzzle: Puzzle
+    @ObservedObject var puzzle: Puzzle
 
     var body: some View {
         verticalClues()
@@ -16,20 +16,10 @@ struct ColumnsClueView: View {
 
     @ViewBuilder func verticalClues() -> some View {
         HStack (spacing: 0){
-            ForEach(tileLines().indices, id: \.self) { yIndex in
-                VerticalClueView(tileLine: puzzle.column(number: yIndex), size: puzzle.tileSize)
+            ForEach(puzzle.puzzleTiles.tiles.indices, id: \.self) { yIndex in
+                VerticalClueView(tileLine: puzzle.column(number: yIndex), size: puzzle.tileSize).frame(height: puzzle.column(number: yIndex).stringSize(tileSize: puzzle.tileSize))
             }
         }
-    }
-
-    func tileLines() -> [TileLine] {
-        var clueTilesLines: [TileLine] = [TileLine]()
-        for index in 0..<puzzle.width {
-            let line = puzzle.column(number: index)
-            clueTilesLines.append(line)
-        }
-        
-        return clueTilesLines
     }
 }
 
@@ -41,15 +31,20 @@ struct ColumnsClueView: View {
     @Previewable @State var dash = Puzzle.dash
 
     VStack {
-        ColumnsClueView(puzzle: $fourDotPuzzle)
+        ColumnsClueView(puzzle: fourDotPuzzle)
+            .background(.red)
             .padding()
-        ColumnsClueView(puzzle: $letterXPuzzle)
+        ColumnsClueView(puzzle: letterXPuzzle)
+            .background(.red)
             .padding()
-        ColumnsClueView(puzzle: $framedPuzzle)
+        ColumnsClueView(puzzle: framedPuzzle)
+            .background(.red)
             .padding()
-        ColumnsClueView(puzzle: $crosshair)
+        ColumnsClueView(puzzle: crosshair)
+            .background(.red)
             .padding()
-        ColumnsClueView(puzzle: $dash)
+        ColumnsClueView(puzzle: dash)
+            .background(.red)
             .padding()
     }
 

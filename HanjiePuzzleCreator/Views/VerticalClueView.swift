@@ -11,14 +11,15 @@ struct VerticalClueView: View {
     @ObservedObject var tileLine: TileLine
     @State var size: CGFloat
     var body: some View {
-        Text("\(tileLine.verticalSting)")
-            .frame(width: size, alignment: .center)
+        Text("\(tileLine.verticalDisplayText)")
+            .foregroundStyle(.white)
+            .frame(width: size, height: tileLine.stringSize(tileSize: size),alignment: .center)
 
     }
 }
 
 #Preview {
-    let size: CGFloat = 14.0
+    let size: CGFloat = 16.0
     let lineOne = TileLine(tiles: [Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile()])
     let lineTwo = TileLine(tiles: [Tile(),
                                    Tile(tileColor: TileColor.primary),
@@ -69,20 +70,28 @@ struct VerticalClueView: View {
 
     VStack {
         VerticalClueView(tileLine: lineOne, size: size)
+            .border(.red)
             .padding()
         VerticalClueView(tileLine: lineTwo, size: size)
+            .border(.red)
             .padding()
         VerticalClueView(tileLine: lineThree, size: size)
+            .border(.red)
             .padding()
         VerticalClueView(tileLine: lineFour, size: size)
+            .border(.red)
             .padding()
         VerticalClueView(tileLine: lineFive, size: size)
+            .border(.red)
             .padding()
         VerticalClueView(tileLine: lineSix, size: size)
+            .border(.red)
             .padding()
         VerticalClueView(tileLine: lineSeven, size: size)
+            .border(.red)
             .padding()
         VerticalClueView(tileLine: lineEight, size: size)
+            .border(.red)
             .padding()
     }
 

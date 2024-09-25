@@ -12,6 +12,7 @@ import SwiftUICore
 class Tile: ObservableObject, Identifiable, Hashable, Equatable, Codable {
     @Published var id: UUID
     @Published var tileColor: TileColor
+    @Published var didTap: Bool = false
 
     //MARK: -
     init(id: UUID = UUID(), tileColor: TileColor = .empty) {
@@ -25,6 +26,7 @@ class Tile: ObservableObject, Identifiable, Hashable, Equatable, Codable {
         } else {
             tileColor = .empty
         }
+        didTap.toggle()
     }
 
     var isOn: Bool {

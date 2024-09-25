@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var puzzle: Puzzle = Puzzle()
+    @StateObject var puzzle: Puzzle = Puzzle()
 
     var body: some View {
-        GenerateView(puzzle: $puzzle)
+        GenerateView(puzzle: puzzle)
     }
 }
 

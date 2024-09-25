@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GenerateView: View {
-    @Binding var puzzle: Puzzle
+    @ObservedObject var puzzle: Puzzle
 
     @State var showHints: Bool = false
     @State var saveCountString: String = "0"
@@ -41,7 +41,7 @@ struct GenerateView: View {
                 }.padding()
             }.frame(width: 256)
 
-            PrintablePuzzleView(showHints: $showHints, puzzle: $puzzle, tileSize: $tileSize).padding()
+            PrintablePuzzleView(showHints: $showHints, puzzle: puzzle, tileSize: tileSize).padding()
         }
     }
 
@@ -54,8 +54,9 @@ struct GenerateView: View {
 
         let textString = "\(self.puzzle.name)_\(saveCount)_puzzle.json"
         if let safePuzzle = Puzzle.load(source: textString) {
-            self.puzzle.objectWillChange.send()
-            self.puzzle = safePuzzle
+            puzzle.name = safePuzzle.name
+            puzzle.tileSize = safePuzzle.tileSize
+            puzzle.puzzleTiles = safePuzzle.puzzleTiles
         } else {
             print("failed to load: \(textString)")
         }
@@ -117,16 +118,16 @@ struct GenerateView: View {
     }
 
     @ViewBuilder var solvedPuzzleView: some View {
-        PrintablePuzzleView(showHints:$showHints, puzzle: $puzzle, tileSize: $tileSize)
+        PrintablePuzzleView(showHints:$showHints, puzzle: puzzle, tileSize: tileSize)
     }
 
     @ViewBuilder var puzzleView: some View {
-        PrintablePuzzleView(showHints:$showHints, puzzle: $puzzle, tileSize: $tileSize, isEmpty: true)
+        PrintablePuzzleView(showHints:$showHints, puzzle: puzzle, tileSize: tileSize, isEmpty: true)
     }
 }
 
 #Preview {
     @Previewable @State var four = Puzzle.fourDots
 
-    GenerateView(puzzle: $four)
+    GenerateView(puzzle: four)
 }

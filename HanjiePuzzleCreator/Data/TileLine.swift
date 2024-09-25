@@ -9,9 +9,14 @@ import Foundation
 
 class TileLine: ObservableObject, Codable, Hashable {
     @Published var tiles: [Tile]
+    @Published var horizontalDisplayText: String = ""
+    @Published var verticalDisplayText: String = ""
 
     init(tiles: [Tile]) {
         self.tiles = tiles
+
+        horizontalDisplayText = horizontalString
+        verticalDisplayText = verticalString
     }
 
         //MARK: - Codable
@@ -105,7 +110,7 @@ class TileLine: ObservableObject, Codable, Hashable {
         return result
     }
 
-    var verticalSting: String {
+    var verticalString: String {
         let array = countArray.counts
 
         var result = ""

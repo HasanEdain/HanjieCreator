@@ -49,6 +49,16 @@ class PuzzleTiles:ObservableObject, Codable, Equatable, Hashable {
         return TileLine(tiles: lineTiles)
     }
 
+    func verticalTileLines() -> [TileLine] {
+        var clueTilesLines: [TileLine] = [TileLine]()
+        for index in 0..<width {
+            let line = column(number: index)
+            clueTilesLines.append(line)
+        }
+
+        return clueTilesLines
+    }
+
         //MARK: - Codable
     enum CodingKeys: CodingKey {
         case tiles

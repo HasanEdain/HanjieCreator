@@ -9,8 +9,8 @@ import SwiftUI
 
 struct PrintablePuzzleView: View {
     @Binding var showHints: Bool
-    @Binding var puzzle: Puzzle
-    @Binding var tileSize: CGFloat
+    @ObservedObject var puzzle: Puzzle
+    @State var tileSize: CGFloat
     var isEmpty: Bool = false
 
     var body: some View {
@@ -22,16 +22,16 @@ struct PrintablePuzzleView: View {
                         .frame(width: (CGFloat(puzzle.width)+1.35) * puzzle.tileSize)
                  HStack (spacing: 0){
                     if showHints {
-                        RowsClueView(puzzle: $puzzle)
+                        RowsClueView(puzzle: puzzle)
                     }
                      if isEmpty {
-                         EmptyPuzzleView(puzzle: $puzzle)
+                         EmptyPuzzleView(puzzle: puzzle)
                      } else {
-                         PuzzleView(puzzle: $puzzle, tileSize: $tileSize)
+                         PuzzleView(puzzle: puzzle, tileSize: $tileSize)
                      }
                 }
                 if showHints {
-                    ColumnsClueView(puzzle: $puzzle)
+                    ColumnsClueView(puzzle: puzzle)
                 }
             }
         }
@@ -43,6 +43,8 @@ struct PrintablePuzzleView: View {
     @Previewable @State var puzzle = Puzzle.fourDots
     @Previewable @State var tileSize: CGFloat = 16.0
 
-    PrintablePuzzleView(showHints: $show, puzzle: $puzzle, tileSize: $tileSize)
-    PrintablePuzzleView(showHints: $show, puzzle: $puzzle, tileSize: $tileSize,isEmpty: true)
+    VStack {
+        PrintablePuzzleView(showHints: $show, puzzle: puzzle, tileSize: tileSize)
+        PrintablePuzzleView(showHints: $show, puzzle: puzzle, tileSize: tileSize,isEmpty: true)
+    }.padding()
 }

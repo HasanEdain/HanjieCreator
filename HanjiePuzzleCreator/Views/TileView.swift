@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct TileView: View {
-    @Binding var tile: Tile
-    @Binding var size: CGFloat
+    @ObservedObject var tile: Tile
+    @State var size: CGFloat
 
     var body: some View {
         Rectangle()
-            .foregroundStyle(tile.tileColor.color)
+            .foregroundColor(tile.tileColor.color)
             .frame(width: size, height: size)
             .border(.black)
             .onTapGesture {
@@ -37,16 +37,16 @@ struct TileView: View {
     @Previewable @State var tilesize: CGFloat = 16.0
 
     VStack {
-        TileView(tile: $emptyTile, size: $tilesize)
-        TileView(tile: $primaryTile, size: $tilesize)
-        TileView(tile: $secondaryTile, size: $tilesize)
-        TileView(tile: $tertiaryTile, size: $tilesize)
-        TileView(tile: $fourthTile, size: $tilesize)
-        TileView(tile: $fifthTile, size: $tilesize)
-        TileView(tile: $sixthTile, size: $tilesize)
-        TileView(tile: $seventhTile, size: $tilesize)
-        TileView(tile: $eigthTile, size: $tilesize)
-        TileView(tile: $ninthTile, size: $tilesize)
+        TileView(tile: emptyTile, size: tilesize)
+        TileView(tile: primaryTile, size: tilesize)
+        TileView(tile: secondaryTile, size: tilesize)
+        TileView(tile: tertiaryTile, size: tilesize)
+        TileView(tile: fourthTile, size: tilesize)
+        TileView(tile: fifthTile, size: tilesize)
+        TileView(tile: sixthTile, size: tilesize)
+        TileView(tile: seventhTile, size: tilesize)
+        TileView(tile: eigthTile, size: tilesize)
+        TileView(tile: ninthTile, size: tilesize)
     }.padding()
 
 }

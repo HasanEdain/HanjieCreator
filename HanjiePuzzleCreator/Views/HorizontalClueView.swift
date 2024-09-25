@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct HorizontalClueView: View {
-    @Binding var tileLine: TileLine
-    @Binding var size: CGFloat
+    @ObservedObject var tileLine: TileLine
+    @State var size: CGFloat
 
     var body: some View {
-        Text("\(tileLine.horizontalString)")
+        Text("\(tileLine.horizontalDisplayText)")
             .frame(height: size, alignment: .center)
     }
 }
@@ -69,21 +69,29 @@ struct HorizontalClueView: View {
     @Previewable @State var size: CGFloat = 16.0
 
     VStack {
-        HorizontalClueView(tileLine: $lineOne, size: $size)
+        HorizontalClueView(tileLine: lineOne, size: size)
+            .border(.red)
             .padding()
-        HorizontalClueView(tileLine: $lineTwo, size: $size)
+        HorizontalClueView(tileLine: lineTwo, size: size)
+            .border(.red)
             .padding()
-        HorizontalClueView(tileLine: $lineThree, size: $size)
+        HorizontalClueView(tileLine: lineThree, size: size)
+            .border(.red)
             .padding()
-        HorizontalClueView(tileLine: $lineFour, size: $size)
+        HorizontalClueView(tileLine: lineFour, size: size)
+            .border(.red)
             .padding()
-        HorizontalClueView(tileLine: $lineFive, size: $size)
+        HorizontalClueView(tileLine: lineFive, size: size)
+            .border(.red)
             .padding()
-        HorizontalClueView(tileLine: $lineSix, size: $size)
+        HorizontalClueView(tileLine: lineSix, size: size)
+            .border(.red)
             .padding()
-        HorizontalClueView(tileLine: $lineSeven, size: $size)
+        HorizontalClueView(tileLine: lineSeven, size: size)
+            .border(.red)
             .padding()
-        HorizontalClueView(tileLine: $lineEight, size: $size)
+        HorizontalClueView(tileLine: lineEight, size: size)
+            .border(.red)
             .padding()
     }
 }

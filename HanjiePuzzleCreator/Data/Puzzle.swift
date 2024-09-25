@@ -6,23 +6,39 @@
 //
 
 import Foundation
+import Combine
 
 class Puzzle: ObservableObject, Codable, Hashable, Equatable {
     @Published var puzzleTiles: PuzzleTiles
     @Published var tileSize: CGFloat
     @Published var name: String
 
+    var cancelable: [AnyCancellable] = []
+
     init(width:Int = 10, height:Int = 10, size: CGFloat = 16.0, name: String = "Puzzle") {
         self.tileSize = size
         self.name = name
         self.puzzleTiles = PuzzleTiles(width: width, height: height)
+        updateOnTap()
+    }
+
+    func updateOnTap() {
+        puzzleTiles.tiles.forEach {tileLine in
+            tileLine.tiles.forEach { tile in
+                tile.$didTap.sink { _ in
+                    tileLine.horizontalDisplayText = tileLine.horizontalString
+                    tileLine.verticalDisplayText = tileLine.verticalString
+                    print("vert: \(tileLine.verticalDisplayText) \(tileLine.verticalString)")
+
+                }.store(in: &cancelable)
+            }
+        }
     }
 
     func update(color: TileColor, location: Location) {
         let tile = puzzleTiles.tile(at: location)
         tile.tileColor = color
     }
-
 
     //MARK: - Access
     func row(number: Int) -> TileLine {
