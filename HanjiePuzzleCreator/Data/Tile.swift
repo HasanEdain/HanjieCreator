@@ -10,7 +10,7 @@ import SwiftUICore
 
 
 class Tile: ObservableObject, Identifiable, Hashable, Equatable, Codable {
-    var id: UUID
+    @Published var id: UUID
     @Published var tileColor: TileColor
 
     //MARK: -

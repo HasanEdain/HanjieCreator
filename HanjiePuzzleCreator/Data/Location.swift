@@ -11,7 +11,7 @@ import Foundation
 class Location: CustomDebugStringConvertible, Comparable, Identifiable, ObservableObject {
     @Published var x: Int
     @Published var y: Int
-    let id: UUID
+    @Published var id: UUID
 
     init(x: Int, y: Int, id: UUID = UUID()) {
         self.x = x

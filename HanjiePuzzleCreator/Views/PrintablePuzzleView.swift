@@ -10,6 +10,7 @@ import SwiftUI
 struct PrintablePuzzleView: View {
     @Binding var showHints: Bool
     @Binding var puzzle: Puzzle
+    @Binding var tileSize: CGFloat
     var isEmpty: Bool = false
 
     var body: some View {
@@ -26,7 +27,7 @@ struct PrintablePuzzleView: View {
                      if isEmpty {
                          EmptyPuzzleView(puzzle: $puzzle)
                      } else {
-                         PuzzleView(puzzle: $puzzle)
+                         PuzzleView(puzzle: $puzzle, tileSize: $tileSize)
                      }
                 }
                 if showHints {
@@ -40,7 +41,8 @@ struct PrintablePuzzleView: View {
 #Preview {
     @Previewable @State var show:Bool = true
     @Previewable @State var puzzle = Puzzle.fourDots
+    @Previewable @State var tileSize: CGFloat = 16.0
 
-    PrintablePuzzleView(showHints: $show, puzzle: $puzzle)
-    PrintablePuzzleView(showHints: $show, puzzle: $puzzle,isEmpty: true)
+    PrintablePuzzleView(showHints: $show, puzzle: $puzzle, tileSize: $tileSize)
+    PrintablePuzzleView(showHints: $show, puzzle: $puzzle, tileSize: $tileSize,isEmpty: true)
 }

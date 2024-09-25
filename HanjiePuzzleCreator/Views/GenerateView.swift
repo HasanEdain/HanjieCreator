@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct GenerateView: View {
-    @State var showHints: Bool = false
     @Binding var puzzle: Puzzle
+
+    @State var showHints: Bool = false
     @State var saveCountString: String = "0"
+    @State var tileSize: CGFloat = 16.0
 
     var body: some View {
         HStack {
@@ -39,7 +41,7 @@ struct GenerateView: View {
                 }.padding()
             }.frame(width: 256)
 
-            PrintablePuzzleView(showHints: $showHints, puzzle: $puzzle).padding()
+            PrintablePuzzleView(showHints: $showHints, puzzle: $puzzle, tileSize: $tileSize).padding()
         }
     }
 
@@ -115,11 +117,11 @@ struct GenerateView: View {
     }
 
     @ViewBuilder var solvedPuzzleView: some View {
-            PrintablePuzzleView(showHints:$showHints, puzzle: $puzzle)
+        PrintablePuzzleView(showHints:$showHints, puzzle: $puzzle, tileSize: $tileSize)
     }
 
     @ViewBuilder var puzzleView: some View {
-        PrintablePuzzleView(showHints:$showHints, puzzle: $puzzle, isEmpty: true)
+        PrintablePuzzleView(showHints:$showHints, puzzle: $puzzle, tileSize: $tileSize, isEmpty: true)
     }
 }
 

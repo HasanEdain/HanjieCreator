@@ -17,7 +17,7 @@ struct RowsClueView: View {
     @ViewBuilder func horizontalClues() -> some View {
         VStack (spacing: 0){
             ForEach(tileLines().indices, id: \.self) { xIndex in
-                HorizontalClueView(tileLine: puzzle.row(number: xIndex), size: puzzle.tileSize)
+                HorizontalClueView(tileLine: $puzzle.puzzleTiles.tiles[xIndex], size: $puzzle.tileSize)
             }
         }
     }

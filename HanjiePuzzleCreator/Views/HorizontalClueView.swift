@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct HorizontalClueView: View {
-    @ObservedObject var tileLine: TileLine
-    @State var size: CGFloat
+    @Binding var tileLine: TileLine
+    @Binding var size: CGFloat
 
     var body: some View {
         Text("\(tileLine.horizontalString)")
@@ -18,35 +18,34 @@ struct HorizontalClueView: View {
 }
 
 #Preview {
-    let size: CGFloat = 16.0
-    let lineOne = TileLine(tiles: [Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile()])
-    let lineTwo = TileLine(tiles: [Tile(),
+    @Previewable @State var lineOne = TileLine(tiles: [Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile()])
+    @Previewable @State var lineTwo = TileLine(tiles: [Tile(),
                                    Tile(tileColor: TileColor.primary),
                                    Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile()])
-    let lineThree = TileLine(tiles: [Tile(),
+    @Previewable @State var lineThree = TileLine(tiles: [Tile(),
                                      Tile(tileColor: TileColor.primary),
                                      Tile(tileColor: TileColor.primary),
                                      Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile()])
-    let lineFour = TileLine(tiles: [Tile(),
+    @Previewable @State var lineFour = TileLine(tiles: [Tile(),
                                     Tile(tileColor: TileColor.primary),
                                     Tile(tileColor: TileColor.primary),
                                     Tile(tileColor: TileColor.primary),
                                     Tile(),Tile(),Tile(),Tile(),Tile(),Tile()])
-    let lineFive = TileLine(tiles: [Tile(),
+    @Previewable @State var lineFive = TileLine(tiles: [Tile(),
                                     Tile(tileColor: TileColor.primary),
                                     Tile(tileColor: TileColor.primary),
                                     Tile(),Tile(),
                                     Tile(tileColor: TileColor.primary),
                                     Tile(tileColor: TileColor.primary),
                                     Tile(),Tile(),Tile()])
-    let lineSix = TileLine(tiles: [Tile(),
+    @Previewable @State var lineSix = TileLine(tiles: [Tile(),
                                    Tile(tileColor: TileColor.primary),
                                    Tile(),
                                    Tile(tileColor: TileColor.primary),
                                    Tile(),
                                    Tile(tileColor: TileColor.primary),
                                    Tile(),Tile(),Tile(),Tile()])
-    let lineSeven = TileLine(tiles: [Tile(),
+    @Previewable @State var lineSeven = TileLine(tiles: [Tile(),
                                      Tile(tileColor: TileColor.primary),
                                      Tile(tileColor: TileColor.primary),
                                      Tile(),
@@ -56,7 +55,7 @@ struct HorizontalClueView: View {
                                      Tile(tileColor: TileColor.primary),
                                      Tile(tileColor: TileColor.primary),
                                      Tile()])
-    let lineEight = TileLine(tiles: [Tile(tileColor: TileColor.primary),
+    @Previewable @State var lineEight = TileLine(tiles: [Tile(tileColor: TileColor.primary),
                                      Tile(),
                                      Tile(tileColor: TileColor.primary),
                                      Tile(tileColor: TileColor.primary),
@@ -67,22 +66,24 @@ struct HorizontalClueView: View {
                                      Tile(),
                                      Tile(tileColor: TileColor.primary)])
 
+    @Previewable @State var size: CGFloat = 16.0
+
     VStack {
-        HorizontalClueView(tileLine: lineOne, size: size)
+        HorizontalClueView(tileLine: $lineOne, size: $size)
             .padding()
-        HorizontalClueView(tileLine: lineTwo, size: size)
+        HorizontalClueView(tileLine: $lineTwo, size: $size)
             .padding()
-        HorizontalClueView(tileLine: lineThree, size: size)
+        HorizontalClueView(tileLine: $lineThree, size: $size)
             .padding()
-        HorizontalClueView(tileLine: lineFour, size: size)
+        HorizontalClueView(tileLine: $lineFour, size: $size)
             .padding()
-        HorizontalClueView(tileLine: lineFive, size: size)
+        HorizontalClueView(tileLine: $lineFive, size: $size)
             .padding()
-        HorizontalClueView(tileLine: lineSix, size: size)
+        HorizontalClueView(tileLine: $lineSix, size: $size)
             .padding()
-        HorizontalClueView(tileLine: lineSeven, size: size)
+        HorizontalClueView(tileLine: $lineSeven, size: $size)
             .padding()
-        HorizontalClueView(tileLine: lineEight, size: size)
+        HorizontalClueView(tileLine: $lineEight, size: $size)
             .padding()
     }
 }

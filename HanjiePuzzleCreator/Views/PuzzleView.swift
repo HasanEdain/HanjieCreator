@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PuzzleView: View {
     @Binding var puzzle: Puzzle
-    var tileSize: CGFloat = 16
+    @Binding var tileSize: CGFloat
 
     var body: some View {
         
@@ -17,7 +17,7 @@ struct PuzzleView: View {
             ForEach($puzzle.puzzleTiles.tiles.indices, id: \.self) { yIndex in
                 HStack (spacing: 0.0) {
                     ForEach($puzzle.puzzleTiles.tiles[yIndex].tiles.indices, id: \.self) { xIndex in
-                        TileView(tile: puzzle.puzzleTiles.tiles[yIndex].tiles[xIndex], size: tileSize)
+                        TileView(tile: $puzzle.puzzleTiles.tiles[yIndex].tiles[xIndex], size: $tileSize)
                     }
                 }
             }
@@ -34,12 +34,14 @@ struct PuzzleView: View {
     @Previewable @State var x = Puzzle.letterX
     @Previewable @State var crosshair = Puzzle.crosshair
 
+    @Previewable @State var tileSize: CGFloat = 16.0
+
     VStack {
-        PuzzleView(puzzle: $puzzle).padding()
-        PuzzleView(puzzle: $crosshair).padding()
-        PuzzleView(puzzle: $frame).padding()
-        PuzzleView(puzzle: $four).padding()
-        PuzzleView(puzzle: $x).padding()
+        PuzzleView(puzzle: $puzzle, tileSize: $tileSize).padding()
+        PuzzleView(puzzle: $crosshair, tileSize: $tileSize).padding()
+        PuzzleView(puzzle: $frame, tileSize: $tileSize).padding()
+        PuzzleView(puzzle: $four, tileSize: $tileSize).padding()
+        PuzzleView(puzzle: $x, tileSize: $tileSize).padding()
     }
 
 }
