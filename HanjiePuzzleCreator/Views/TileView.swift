@@ -23,18 +23,18 @@ struct TileView: View {
 }
 
 #Preview {
-    @Previewable @State var emptyTile = Tile(tileColor: .empty)
-    @Previewable @State var primaryTile = Tile(tileColor: .primary)
-    @Previewable @State var secondaryTile = Tile(tileColor: .second)
-    @Previewable @State var tertiaryTile = Tile(tileColor: .third)
-    @Previewable @State var fourthTile = Tile(tileColor: .fourth)
-    @Previewable @State var fifthTile = Tile(tileColor: .fifth)
-    @Previewable @State var sixthTile = Tile(tileColor: .sixth)
-    @Previewable @State var seventhTile = Tile(tileColor: .seventh)
-    @Previewable @State var eigthTile = Tile(tileColor: .eighth)
-    @Previewable @State var ninthTile = Tile(tileColor: .ninth)
+    let emptyTile = Tile(tileColor: .empty)
+    let primaryTile = Tile(tileColor: .primary)
+    let secondaryTile = Tile(tileColor: .second)
+    let tertiaryTile = Tile(tileColor: .third)
+    let fourthTile = Tile(tileColor: .fourth)
+    let fifthTile = Tile(tileColor: .fifth)
+    let sixthTile = Tile(tileColor: .sixth)
+    let seventhTile = Tile(tileColor: .seventh)
+    let eigthTile = Tile(tileColor: .eighth)
+    let ninthTile = Tile(tileColor: .ninth)
 
-    @Previewable @State var tilesize: CGFloat = 16.0
+    let tilesize: CGFloat = 16.0
 
     VStack {
         TileView(tile: emptyTile, size: tilesize)

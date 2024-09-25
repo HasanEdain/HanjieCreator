@@ -7,13 +7,15 @@
 
 import Foundation
 
-class TileLine: ObservableObject, Codable, Hashable {
+class TileLine: ObservableObject, Codable, Hashable, Identifiable {
     @Published var tiles: [Tile]
     @Published var horizontalDisplayText: String = ""
     @Published var verticalDisplayText: String = ""
+    let id: UUID
 
-    init(tiles: [Tile]) {
+    init(tiles: [Tile], id: UUID = UUID()) {
         self.tiles = tiles
+        self.id = id
 
         horizontalDisplayText = horizontalString
         verticalDisplayText = verticalString
@@ -22,17 +24,20 @@ class TileLine: ObservableObject, Codable, Hashable {
         //MARK: - Codable
     enum CodingKeys: CodingKey {
         case tiles
+        case id
     }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         tiles = try container.decode([Tile].self, forKey: .tiles)
+        id = try container.decode(UUID.self,forKey: .id)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         try container.encode(tiles, forKey: .tiles)
+        try container.encode(id, forKey: .id)
     }
 
         //MARK: - Equatable
@@ -51,6 +56,7 @@ class TileLine: ObservableObject, Codable, Hashable {
         //MARK: - Hashable
     func hash(into hasher: inout Hasher) {
         hasher.combine(tiles)
+        hasher.combine(id)
     }
 
     func tile(at index: Int) -> Tile {

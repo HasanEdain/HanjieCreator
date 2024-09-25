@@ -16,19 +16,19 @@ struct RowsClueView: View {
 
     @ViewBuilder func horizontalClues() -> some View {
         VStack (spacing: 0){
-            ForEach(puzzle.puzzleTiles.tiles.indices, id: \.self) { xIndex in
-                HorizontalClueView(tileLine: puzzle.puzzleTiles.tiles[xIndex], size: puzzle.tileSize)
+            ForEach(puzzle.puzzleTiles.tileLines.indices, id: \.self) { xIndex in
+                HorizontalClueView(tileLine: puzzle.puzzleTiles.tileLines[xIndex], size: puzzle.tileSize)
             }
         }
     }
 }
 
 #Preview {
-    @Previewable @State var fourDotPuzzle = Puzzle.fourDots
-    @Previewable @State var letterXPuzzle = Puzzle.letterX
-    @Previewable @State var framedPuzzle = Puzzle.framed
-    @Previewable @State var crosshairPuzzle = Puzzle.crosshair
-    @Previewable @State var dash = Puzzle.dash
+    let fourDotPuzzle = Puzzle.fourDots
+    let letterXPuzzle = Puzzle.letterX
+    let framedPuzzle = Puzzle.framed
+    let crosshairPuzzle = Puzzle.crosshair
+    let dash = Puzzle.dash
 
     VStack {
         RowsClueView(puzzle: fourDotPuzzle)

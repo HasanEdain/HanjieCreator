@@ -18,34 +18,34 @@ struct HorizontalClueView: View {
 }
 
 #Preview {
-    @Previewable @State var lineOne = TileLine(tiles: [Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile()])
-    @Previewable @State var lineTwo = TileLine(tiles: [Tile(),
+    let lineOne = TileLine(tiles: [Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile()])
+    let lineTwo = TileLine(tiles: [Tile(),
                                    Tile(tileColor: TileColor.primary),
                                    Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile()])
-    @Previewable @State var lineThree = TileLine(tiles: [Tile(),
+    let lineThree = TileLine(tiles: [Tile(),
                                      Tile(tileColor: TileColor.primary),
                                      Tile(tileColor: TileColor.primary),
                                      Tile(),Tile(),Tile(),Tile(),Tile(),Tile(),Tile()])
-    @Previewable @State var lineFour = TileLine(tiles: [Tile(),
+    let lineFour = TileLine(tiles: [Tile(),
                                     Tile(tileColor: TileColor.primary),
                                     Tile(tileColor: TileColor.primary),
                                     Tile(tileColor: TileColor.primary),
                                     Tile(),Tile(),Tile(),Tile(),Tile(),Tile()])
-    @Previewable @State var lineFive = TileLine(tiles: [Tile(),
+    let lineFive = TileLine(tiles: [Tile(),
                                     Tile(tileColor: TileColor.primary),
                                     Tile(tileColor: TileColor.primary),
                                     Tile(),Tile(),
                                     Tile(tileColor: TileColor.primary),
                                     Tile(tileColor: TileColor.primary),
                                     Tile(),Tile(),Tile()])
-    @Previewable @State var lineSix = TileLine(tiles: [Tile(),
+    let lineSix = TileLine(tiles: [Tile(),
                                    Tile(tileColor: TileColor.primary),
                                    Tile(),
                                    Tile(tileColor: TileColor.primary),
                                    Tile(),
                                    Tile(tileColor: TileColor.primary),
                                    Tile(),Tile(),Tile(),Tile()])
-    @Previewable @State var lineSeven = TileLine(tiles: [Tile(),
+    let lineSeven = TileLine(tiles: [Tile(),
                                      Tile(tileColor: TileColor.primary),
                                      Tile(tileColor: TileColor.primary),
                                      Tile(),
@@ -55,7 +55,7 @@ struct HorizontalClueView: View {
                                      Tile(tileColor: TileColor.primary),
                                      Tile(tileColor: TileColor.primary),
                                      Tile()])
-    @Previewable @State var lineEight = TileLine(tiles: [Tile(tileColor: TileColor.primary),
+    let lineEight = TileLine(tiles: [Tile(tileColor: TileColor.primary),
                                      Tile(),
                                      Tile(tileColor: TileColor.primary),
                                      Tile(tileColor: TileColor.primary),
@@ -66,7 +66,7 @@ struct HorizontalClueView: View {
                                      Tile(),
                                      Tile(tileColor: TileColor.primary)])
 
-    @Previewable @State var size: CGFloat = 16.0
+    let size: CGFloat = 16.0
 
     VStack {
         HorizontalClueView(tileLine: lineOne, size: size)

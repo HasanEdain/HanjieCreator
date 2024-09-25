@@ -9,39 +9,36 @@ import SwiftUI
 
 struct PuzzleView: View {
     @ObservedObject var puzzle: Puzzle
-    @Binding var tileSize: CGFloat
 
     var body: some View {
         
         VStack (spacing: 0.0) {
-            ForEach($puzzle.puzzleTiles.tiles.indices, id: \.self) { yIndex in
+            ForEach($puzzle.puzzleTiles.tileLines.indices, id: \.self) { yIndex in
                 HStack (spacing: 0.0) {
-                    ForEach(puzzle.puzzleTiles.tiles[yIndex].tiles.indices, id: \.self) { xIndex in
-                        TileView(tile: puzzle.puzzleTiles.tiles[yIndex].tiles[xIndex], size: tileSize)
+                    ForEach(puzzle.puzzleTiles.tileLines[yIndex].tiles.indices, id: \.self) { xIndex in
+                        TileView(tile: puzzle.puzzleTiles.tileLines[yIndex].tiles[xIndex], size: puzzle.tileSize)
                     }
                 }
             }
-        }.frame(width: tileSize*CGFloat(puzzle.width), height: tileSize*CGFloat(puzzle.height), alignment: .center)
-        
+        }.frame(width: puzzle.tileSize*CGFloat(puzzle.width),
+                height: puzzle.tileSize*CGFloat(puzzle.height),
+                alignment: .center)
     }
 }
 
-
 #Preview {
-    @Previewable @State var puzzle = Puzzle()
-    @Previewable @State var frame = Puzzle.framed
-    @Previewable @State var four = Puzzle.fourDots
-    @Previewable @State var x = Puzzle.letterX
-    @Previewable @State var crosshair = Puzzle.crosshair
-
-    @Previewable @State var tileSize: CGFloat = 16.0
+    let puzzle = Puzzle()
+    let frame = Puzzle.framed
+    let four = Puzzle.fourDots
+    let x = Puzzle.letterX
+    let crosshair = Puzzle.crosshair
 
     VStack {
-        PuzzleView(puzzle: puzzle, tileSize: $tileSize).padding()
-        PuzzleView(puzzle: crosshair, tileSize: $tileSize).padding()
-        PuzzleView(puzzle: frame, tileSize: $tileSize).padding()
-        PuzzleView(puzzle: four, tileSize: $tileSize).padding()
-        PuzzleView(puzzle: x, tileSize: $tileSize).padding()
+        PuzzleView(puzzle: puzzle).padding()
+        PuzzleView(puzzle: crosshair).padding()
+        PuzzleView(puzzle: frame).padding()
+        PuzzleView(puzzle: four).padding()
+        PuzzleView(puzzle: x).padding()
     }
 
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 class PuzzleTiles:ObservableObject, Codable, Equatable, Hashable {
-    @Published var tiles: [TileLine] = []
+    @Published var tileLines: [TileLine] = []
     @Published var width: Int
     @Published var height: Int
 
@@ -22,20 +22,20 @@ class PuzzleTiles:ObservableObject, Codable, Equatable, Hashable {
             for _ in 0..<width {
                 tempTiles.append(Tile())
             }
-            tiles.append(TileLine(tiles: tempTiles))
+            tileLines.append(TileLine(tiles: tempTiles))
         }
     }
 
     //MARK: - Access
     func tile(at location: Location) -> Tile {
-        let tileLine = tiles[location.y]
+        let tileLine = tileLines[location.y]
         let tile = tileLine.tiles[location.x]
 
         return tile
     }
 
     func row(number: Int) -> TileLine {
-        return tiles[number]
+        return tileLines[number]
     }
 
     func column(number: Int) -> TileLine {
@@ -68,24 +68,24 @@ class PuzzleTiles:ObservableObject, Codable, Equatable, Hashable {
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        tiles = try container.decode([TileLine].self, forKey: .tiles)
+        tileLines = try container.decode([TileLine].self, forKey: .tiles)
         width = try container.decode(Int.self, forKey: .width)
         height = try container.decode(Int.self, forKey: .height)
         }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(tiles, forKey: .tiles)
+        try container.encode(tileLines, forKey: .tiles)
         try container.encode(width, forKey: .width)
         try container.encode(height, forKey: .height)
         }
 
         //MARK: - Equatable
     static func == (lhs: PuzzleTiles, rhs: PuzzleTiles) -> Bool {
-        for yIndex in lhs.tiles.indices {
-            for xIndex in lhs.tiles.indices {
-                let rhsValue = rhs.tiles[yIndex].tile(at: xIndex)
-                let lhsValue = lhs.tiles[yIndex].tile(at: xIndex)
+        for yIndex in lhs.tileLines.indices {
+            for xIndex in lhs.tileLines.indices {
+                let rhsValue = rhs.tileLines[yIndex].tile(at: xIndex)
+                let lhsValue = lhs.tileLines[yIndex].tile(at: xIndex)
                 if rhsValue != lhsValue {
                     return false
                 }
@@ -97,7 +97,7 @@ class PuzzleTiles:ObservableObject, Codable, Equatable, Hashable {
 
         //MARK: - Hashable
     func hash(into hasher: inout Hasher) {
-        hasher.combine(tiles)
+        hasher.combine(tileLines)
         hasher.combine(width)
         hasher.combine(height)
     }

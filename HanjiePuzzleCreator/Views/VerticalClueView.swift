@@ -10,6 +10,7 @@ import SwiftUI
 struct VerticalClueView: View {
     @ObservedObject var tileLine: TileLine
     @State var size: CGFloat
+    
     var body: some View {
         Text("\(tileLine.verticalDisplayText)")
             .foregroundStyle(.white)

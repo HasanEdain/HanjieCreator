@@ -13,10 +13,10 @@ struct EmptyPuzzleView: View {
     var body: some View {
 
         VStack (spacing: 0.0) {
-            ForEach(puzzle.puzzleTiles.tiles.indices, id: \.self) { yIndex in
+            ForEach(puzzle.puzzleTiles.tileLines.indices, id: \.self) { yIndex in
                 HStack (spacing: 0.0) {
-                    ForEach(puzzle.puzzleTiles.tiles[yIndex].tiles.indices, id: \.self) { xIndex in
-                        TileView(tile: puzzle.puzzleTiles.tiles[yIndex].tiles[xIndex], size: puzzle.tileSize)
+                    ForEach(puzzle.puzzleTiles.tileLines[yIndex].tiles.indices, id: \.self) { xIndex in
+                        TileView(tile: Tile(), size: puzzle.tileSize)
                     }
                 }
             }
@@ -26,11 +26,11 @@ struct EmptyPuzzleView: View {
 }
 
 #Preview {
-    @Previewable @State var puzzle = Puzzle()
-    @Previewable @State var frame = Puzzle.framed
-    @Previewable @State var four = Puzzle.fourDots
-    @Previewable @State var x = Puzzle.letterX
-    @Previewable @State var crosshair = Puzzle.crosshair
+    let puzzle = Puzzle()
+    let frame = Puzzle.framed
+    let four = Puzzle.fourDots
+    let x = Puzzle.letterX
+    let crosshair = Puzzle.crosshair
 
     VStack {
         EmptyPuzzleView(puzzle: puzzle).padding()

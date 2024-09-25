@@ -23,7 +23,7 @@ class Puzzle: ObservableObject, Codable, Hashable, Equatable {
     }
 
     func updateOnTap() {
-        puzzleTiles.tiles.forEach {tileLine in
+        puzzleTiles.tileLines.forEach {tileLine in
             tileLine.tiles.forEach { tile in
                 tile.$didTap.sink { _ in
                     tileLine.horizontalDisplayText = tileLine.horizontalString
