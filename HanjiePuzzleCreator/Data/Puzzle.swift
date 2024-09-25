@@ -41,6 +41,10 @@ class Puzzle: ObservableObject, Codable, Hashable, Equatable {
     }
 
     //MARK: - Access
+    func clear() {
+        puzzleTiles.clear()
+    }
+
     func row(number: Int) -> TileLine {
         return puzzleTiles.row(number: number)
     }

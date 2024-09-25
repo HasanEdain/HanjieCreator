@@ -16,9 +16,16 @@ struct GenerateView: View {
     var body: some View {
         HStack {
             Form {
-                Button("Toggle") {
-                    showHints.toggle()
-                }.padding()
+                HStack {
+                    Button("Toggle") {
+                        showHints.toggle()
+                    }.padding()
+
+                    Button("Clear") {
+                        clear()
+                    }.padding()
+
+                }
 
                 TextField(text: $puzzle.name) {
                     Label(
@@ -42,6 +49,10 @@ struct GenerateView: View {
 
             PrintablePuzzleView(showHints: $showHints, puzzle: puzzle).padding()
         }
+    }
+
+    func clear(){
+        puzzle.clear()
     }
 
     func load() {

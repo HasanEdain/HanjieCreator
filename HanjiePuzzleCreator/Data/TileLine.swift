@@ -59,6 +59,13 @@ class TileLine: ObservableObject, Codable, Hashable, Identifiable {
         hasher.combine(id)
     }
 
+    //MARK: - Access
+    func clear() {
+        tiles.forEach { tile in
+            tile.clear()
+        }
+    }
+
     func tile(at index: Int) -> Tile {
         return tiles[index]
     }

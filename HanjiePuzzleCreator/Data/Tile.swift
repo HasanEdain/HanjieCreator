@@ -14,12 +14,16 @@ class Tile: ObservableObject, Identifiable, Hashable, Equatable, Codable {
     @Published var tileColor: TileColor
     @Published var didTap: Bool = false
 
-    //MARK: -
+    //MARK: - Init
     init(id: UUID = UUID(), tileColor: TileColor = .empty) {
         self.id = id
         self.tileColor = tileColor
     }
 
+    //MARK: state
+    func clear() {
+        tileColor = .empty
+    }
     func toggle() {
         if tileColor == .empty {
             tileColor = .primary
