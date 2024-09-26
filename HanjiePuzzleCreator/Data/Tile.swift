@@ -13,13 +13,13 @@ class Tile: ObservableObject, Identifiable, Hashable, Equatable, Codable {
     let id: UUID
     @Published var tileColor: TileColor
 
-        //MARK: - Init
+    //MARK: - Init
     init(id: UUID = UUID(), tileColor: TileColor = .empty) {
         self.id = id
         self.tileColor = tileColor
     }
 
-        //MARK: state
+    //MARK: state
     func clear() {
         tileColor = .empty
     }
