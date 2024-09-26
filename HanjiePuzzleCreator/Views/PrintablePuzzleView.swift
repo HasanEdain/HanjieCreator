@@ -31,7 +31,6 @@ struct PrintablePuzzleView: View {
         }
     }
 
-
     var name: String {
         return "\(puzzle.name)"
     }
@@ -42,7 +41,7 @@ struct PrintablePuzzleView: View {
         let tileSize: CGFloat = puzzle.tileSize
 
         let result = (puzzleWidth + shim) * tileSize
-        
+
         return result
     }
 }

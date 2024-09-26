@@ -19,7 +19,7 @@ struct RowsClueView: View {
             ForEach(puzzle.puzzleTiles.tileLines.indices, id: \.self) { xIndex in
                 HorizontalClueView(rowNumber: xIndex)
             }
-        }.border(.blue)
+        }
     }
 }
 

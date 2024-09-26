@@ -14,16 +14,12 @@ struct TileView: View {
 
     var body: some View {
         Rectangle()
-            .foregroundColor(tile.tileColor.color)
+            .foregroundColor(puzzle.tile(at: location).tileColor.color)
             .frame(width: puzzle.tileSize, height: puzzle.tileSize)
             .border(.black)
             .onTapGesture {
-                tile.toggle()
+                puzzle.tile(at: location).toggle()
             }
-    }
-
-    var tile: Tile {
-        puzzle.tile(at: location)
     }
 }
 

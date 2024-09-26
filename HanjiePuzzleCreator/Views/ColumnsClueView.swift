@@ -16,7 +16,7 @@ struct ColumnsClueView: View {
                 VerticalClueView(columnNumber: yIndex)
                     .frame(height: puzzle.column(number: yIndex).stringSize(tileSize: puzzle.tileSize))
             }
-        }.border(.blue)
+        }
     }
 }
 
